@@ -5,6 +5,7 @@ import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/components/transaction_list.dart';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
@@ -26,6 +27,11 @@ class _ExpensesAppState extends State<ExpensesApp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: themeMode,
@@ -68,6 +74,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [];
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _transactions
@@ -101,6 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -121,18 +130,30 @@ class _MyHomePageState extends State<MyHomePage> {
           child: const Icon(Icons.add),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: Padding(
+        body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Chart(recentTransaction: _recentTransactions),
-              Expanded(
-                child: TransactionList(
+              if (isLandscape)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Exibir Gráfico "),
+                    Switch(
+                        value: _showChart,
+                        onChanged: (value) {
+                          setState(() => _showChart = value);
+                        })
+                  ],
+                ),
+              if (_showChart || !isLandscape)
+                Chart(recentTransaction: _recentTransactions),
+              if (!_showChart || !isLandscape)
+                TransactionList(
                   transactions: _transactions,
                   onRemove: _removeTransaction,
                 ),
-              ),
             ],
           ),
         ));
