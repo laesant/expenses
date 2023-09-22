@@ -103,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (_) => TransactionForm(onSubmit: _addTransaction));
   }
 
@@ -120,6 +121,10 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const Text("Despesas Pessoais"),
           centerTitle: true,
           actions: [
+            if (isLandscape)
+              IconButton(
+                  onPressed: () => setState(() => _showChart = !_showChart),
+                  icon: Icon(_showChart ? Icons.list_alt : Icons.bar_chart)),
             IconButton(
                 onPressed: () => _openTransactionFormModal(context),
                 icon: const Icon(Icons.add))
@@ -135,18 +140,6 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (isLandscape)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Exibir Gráfico "),
-                    Switch(
-                        value: _showChart,
-                        onChanged: (value) {
-                          setState(() => _showChart = value);
-                        })
-                  ],
-                ),
               if (_showChart || !isLandscape)
                 Chart(recentTransaction: _recentTransactions),
               if (!_showChart || !isLandscape)
