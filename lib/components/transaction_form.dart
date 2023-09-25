@@ -1,3 +1,4 @@
+import 'package:expenses/components/adaptative_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -75,8 +76,7 @@ class _TransactionFormState extends State<TransactionForm> {
               ],
             ),
             const SizedBox(height: 20),
-            FilledButton(
-                onPressed: _submitForm, child: const Text("Nova Transação"))
+            AdaptativeButton(label: "Nova Transação", onPressed: _submitForm)
           ],
         ),
       ),
