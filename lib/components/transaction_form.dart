@@ -1,4 +1,5 @@
 import 'package:expenses/components/adaptative_button.dart';
+import 'package:expenses/components/adaptative_date_picker.dart';
 import 'package:expenses/components/adaptative_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,7 +15,11 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _valueController = TextEditingController();
-  DateTime? _selectedDate;
+  DateTime _selectedDate = DateTime.now();
+
+  void onDateChanged(DateTime value) {
+    setState(() => _selectedDate = value);
+  }
 
   void _submitForm() {
     final String title = _titleController.text;
@@ -23,18 +28,6 @@ class _TransactionFormState extends State<TransactionForm> {
     if (title.isEmpty || value <= 0 || _selectedDate == null) return;
 
     widget.onSubmit(title, value, _selectedDate!);
-  }
-
-  void _showDatePicker() async {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2019),
-      lastDate: DateTime.now(),
-    ).then((value) {
-      if (value == null) return;
-      setState(() => _selectedDate = value);
-    });
   }
 
   @override
@@ -66,16 +59,9 @@ class _TransactionFormState extends State<TransactionForm> {
               onSubmitted: (_) => _submitForm(),
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(_selectedDate == null
-                    ? "Nenhuma data selecionada!"
-                    : "Data selecionada: ${DateFormat.yMd('pt').format(_selectedDate!)}"),
-                ElevatedButton(
-                    onPressed: _showDatePicker,
-                    child: const Text("Selecionar Data"))
-              ],
+            AdaptativeDatePicker(
+              selectedDate: _selectedDate,
+              onDateChanged: onDateChanged,
             ),
             const SizedBox(height: 20),
             AdaptativeButton(label: "Nova Transação", onPressed: _submitForm)
