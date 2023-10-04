@@ -15,12 +15,15 @@ Desenvolver esta aplicação foi uma oportunidade incrível de aplicar meus conh
 ## Próximos Passos
 Embora esta aplicação seja principalmente para fins de estudo, pretendo continuar aprimorando-a e adicionando novas funcionalidades à medida que aprendo mais sobre desenvolvimento de aplicativos móveis. Estou sempre aberto a sugestões e feedback da comunidade de desenvolvedores.
 
-Se você deseja contribuir ou entrar em contato comigo para discutir ideias, sinta-se à vontade para me encontrar no meu perfil do GitHub @[laesant].
+Se você deseja contribuir ou entrar em contato comigo para discutir ideias, sinta-se à vontade para me encontrar no meu perfil do GitHub [laesant](https://github.com/laesant).
 
 ## Recursos de Aprendizado
 Se você também está interessado em desenvolvimento Flutter, aqui estão alguns recursos úteis:
 
 [Lab: Crie seu primeiro aplicativo Flutter](https://docs.flutter.dev/get-started/codelab)
+
 [Cookbook: Exemplos úteis do Flutter](https://docs.flutter.dev/cookbook)
+
 [Documentação Online do Flutter:](https://docs.flutter.dev/) Esta é uma fonte valiosa de tutoriais, amostras e referências de API.
+
 Aproveite a exploração da minha aplicação de despesas pessoais e feliz codificação!
