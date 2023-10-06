@@ -25,16 +25,15 @@ class TransactionList extends StatelessWidget {
               )
             ]
           : [
-              ...transactions
-                  .map((transaction) => TransactionItem(
-                        transaction: transaction,
-                        onRemove: onRemove,
-                      ))
-                  .toList(),
+              ...transactions.map((transaction) {
+                return TransactionItem(
+                  key: ValueKey(transaction.id),
+                  transaction: transaction,
+                  onRemove: onRemove,
+                );
+              }).toList(),
               const SizedBox(height: 80)
             ],
     );
   }
 }
-
-
